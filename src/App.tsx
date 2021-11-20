@@ -7,6 +7,6 @@ const Wrapper = styled.div`
 
 export const App = (() => {
     return (
-        <Wrapper>Hello world!</Wrapper>
+        <Wrapper>Hello world! hi</Wrapper>
     );
 })
