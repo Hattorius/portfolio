@@ -41,23 +41,15 @@ const Button = styled.div`
 `;
 
 export const App = () => {
-    const [consoleData, setConsoleData] = useState([{'path':'~','command':'hi','type':'command'}]);
-
     const goToPage = (page) => {
         console.log(page);
-    }
-
-    const commandExecute = (command, commands) => {
-        console.log(commands[commands.length - 1]);
-        setConsoleData(commands.push({'path':commands[commands.length - 1].path,'command':command,'type':'command'}));
-        console.log(command);
     }
 
 	return (
 		<Wrapper>
 			<Center>
                 <Navbar goToHandler={goToPage}/>
-                <Console commands={consoleData} barName='console' whatToDo={commandExecute}/>
+                <Console barName='console'/>
                 <AboutMe/>
             </Center>
 			<GlobalStyle />
