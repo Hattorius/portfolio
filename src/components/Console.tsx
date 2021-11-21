@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import Draggable from "react-draggable";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -29,6 +30,10 @@ const Bar = styled.div`
     padding-left: 6px;
     color: #c9c9c9;
     font-size: 12px;
+    &:active {
+        cursor: grabbing;
+    }
+    cursor: alias;
 `;
 
 const Content = styled.div`
@@ -134,14 +139,16 @@ export const Console = ( props ) => {
     }
 
     return (
-        <Wrapper onKeyDown={keyPress} tabIndex="0">
-            <Bar>{props.barName}</Bar>
-            <Content>
-                <Line>
-                    <ConsoleCommands commands={props.commands}></ConsoleCommands>
-                    <User>aaron@<X>x</X>logic</User><Command>:</Command><Path>{latestPath}</Path><Command>$ {input}<Typer /></Command>
-                </Line>
-            </Content>
-        </Wrapper>
+        <Draggable handle=".handle" defaultPosition={{x: 0, y: 0}}>
+            <Wrapper onKeyDown={keyPress} tabIndex="0">
+                <Bar className="handle">{props.barName}</Bar>
+                <Content>
+                    <Line>
+                        <ConsoleCommands commands={props.commands}></ConsoleCommands>
+                        <User>aaron@<X>x</X>logic</User><Command>:</Command><Path>{latestPath}</Path><Command>$ {input}<Typer /></Command>
+                    </Line>
+                </Content>
+            </Wrapper>
+        </Draggable>
     );
 };
