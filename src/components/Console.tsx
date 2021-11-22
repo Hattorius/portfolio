@@ -2,12 +2,14 @@ import React, { useEffect, useState, useRef } from "react";
 import Draggable from "react-draggable";
 import styled from "styled-components";
 
+import aboutme_md from 'url:./../pages/aboutme.md';
+
 const Wrapper = styled.div`
     position: absolute;
     background-color: #2d2e2f;
     position: -webkit-sticky;
     position: fixed;
-    right: 3rem;
+    right: -10rem;
     width: 100%;
     max-width: 35%;
     margin-top: 20px;
@@ -135,16 +137,13 @@ const Typer = () => {
     }
 }
 
-function reverse(s){
-    return s.split("").reverse().join("");
-}
-
-export const Console = () => {
+export const Console = ( props ) => {
     const [input, inputState] = useState('');
     const [active, setActive] = useState(false);
     const [consoleData, setConsoleData] = useState<ConsoleLine[]>([
         {type:'log', message:'Type `help` to see a list of commands', path:'~'}
     ]);
+    const [currentPage, setCurrentPage] = useState('');
 
     const fileSystem = {
         '~': {
@@ -220,6 +219,7 @@ export const Console = () => {
                     logs.push({type: 'log', message: newPath[args[0]], path: '~'});
                 }
                 setConsoleData(consoleData.concat(logs));
+                // do something with props.goToHandler(page);
             }
         }
     }

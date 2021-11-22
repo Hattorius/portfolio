@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import { AboutMe } from "./components/AboutMe";
+import { Contents } from "./components/Contents";
 import { Console } from "./components/Console";
 import { Navbar } from "./components/Navbar";
 
@@ -16,13 +16,16 @@ const GlobalStyle = createGlobalStyle`
     * {
         box-sizing: border-box;
     }
+    .active {
+        color: #fefefe;
+    }
 `;
 
 const Wrapper = styled.div`
 	background: #020B0D;
 	display: flex;
 	justify-content: center;
-    min-height: 150vh;
+    min-height: 100vh;
 `;
 
 const Center = styled.div`
@@ -41,16 +44,23 @@ const Button = styled.div`
 `;
 
 export const App = () => {
-    const goToPage = (page) => {
+    const [currentPage, setCurrentPage] = useState('aboutme.md');
+
+    const goToPage = (page: string) => {
+        setCurrentPage(page);
         console.log(page);
+    }
+
+    const pageContents = (pageContent: string) => {
+
     }
 
 	return (
 		<Wrapper>
 			<Center>
-                <Navbar goToHandler={goToPage}/>
-                <Console/>
-                <AboutMe/>
+                <Navbar goToHandler={goToPage} currentPage={currentPage}/>
+                <Console goToHandler={goToPage} currentPage={currentPage} pageContents={pageContents}/>
+                <Contents/>
             </Center>
 			<GlobalStyle />
 		</Wrapper>

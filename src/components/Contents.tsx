@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import avatar from './../images/avatar.png';
+import fs from "fs";
+
+import avatar from 'url:./../images/avatar.png';
 
 const Wrapper = styled.div``;
 
 const Content = styled.div`
     padding: 1rem;
     background-color: #0E1E25;
-    border-radius: 1rem;
     -webkit-box-shadow: 0px 1px 3px 0px #000000; 
     box-shadow: 0px 1px 3px 0px #000000;
     width: 100%;
-    max-width: 650px;
     display: flex;
     color: #fff;
 `;
@@ -42,7 +42,7 @@ const Small = styled(Text)`
     font-size: 10px;
 `;
 
-export const AboutMe = ( props ) => {
+export const Contents = ( props ) => {
     return (
         <Wrapper>
             <Title>About me</Title>

@@ -10,11 +10,8 @@ const Wrapper = styled.div`
 
 const MenuLeft = styled.div`
     display: flex;
-    justify-content: left;
-`;
-const MenuRight = styled.div`
-    display: flex;
-    justify-content: right;
+    justify-content: center;
+    width: 100%;
 `;
 
 const MenuItem = styled.div`
@@ -38,16 +35,24 @@ const MenuItem = styled.div`
     user-select: none;
 `;
 
+const EggsOrSomething = styled(MenuItem)`
+    color: #575a5c;
+`;
+
 export const Navbar = ( props ) => {
     return (
         <Wrapper>
             <MenuLeft>
-                <MenuItem onClick={() => props.goToHandler('home')}>Home</MenuItem>
-                <MenuItem onClick={() => props.goToHandler('skills')}>Skills</MenuItem>
-                <MenuItem onClick={() => props.goToHandler('projects')}>Projects</MenuItem>
-                <MenuItem onClick={() => props.goToHandler('contact')}>Contact</MenuItem>
+                <MenuItem className={(props.currentPage === 'aboutme.md' ? 'active' : '')} onClick={() => props.goToHandler('aboutme.md')}>aboutme.md</MenuItem>
+                <EggsOrSomething>/</EggsOrSomething>
+                <MenuItem className={(props.currentPage === 'skills.md' ? 'active' : '')} onClick={() => props.goToHandler('skills.md')}>skills.md</MenuItem>
+                <EggsOrSomething>/</EggsOrSomething>
+                <MenuItem className={(props.currentPage === 'projects.md' ? 'active' : '')} onClick={() => props.goToHandler('projects.md')}>projects.md</MenuItem>
+                <EggsOrSomething>/</EggsOrSomething>
+                <MenuItem className={(props.currentPage === 'blog.md' ? 'active' : '')} onClick={() => props.goToHandler('blog.md')}>epic_blog.md</MenuItem>
+                <EggsOrSomething>/</EggsOrSomething>
+                <MenuItem className={(props.currentPage === 'contact.md' ? 'active' : '')} onClick={() => props.goToHandler('contact.md')}>contact.md</MenuItem>
             </MenuLeft>
-            <MenuRight>Hello</MenuRight>
         </Wrapper>
     );
 }
