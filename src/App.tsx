@@ -49,7 +49,7 @@ export const App = () => {
 		<Wrapper>
 			<Center>
                 <Navbar goToHandler={goToPage}/>
-                <Console barName='console'/>
+                <Console/>
                 <AboutMe/>
             </Center>
 			<GlobalStyle />

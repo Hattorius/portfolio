@@ -13,21 +13,19 @@ const Wrapper = styled.div`
     margin-top: 20px;
     cursor: text;
     height: 35%;
-    -webkit-box-shadow: 0px 1px 3px 0px #000000; 
-    box-shadow: 0px 1px 3px 0px #000000;
+    &:active {
+        -webkit-box-shadow: 0px 1px 3px 0px #000000; 
+        box-shadow: 0px 1px 3px 0px #000000;
+    }
     display: none;
     @media (min-width: 1000px) {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        justify-content: stretch;
     }
     resize: both;
-    overflow: hidden;
-    overflow-y: scroll;
-    &::-webkit-scrollbar {
-        display: none;
-    }
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    padding-bottom: 1rem;
+    min-height: 300px;
+    min-width: 600px;
 `;
 
 const Bar = styled.div`
@@ -48,6 +46,15 @@ const Bar = styled.div`
 const Content = styled.div`
     padding: 6px;
     padding-top: 12px;
+    flex-grow: 1;
+    overflow-y: overlay;
+    padding-bottom: 1rem;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin-bottom: 3px;
 `;
 
 const Line = styled.div`
@@ -76,6 +83,10 @@ const Command = styled.div`
     color: #e5e5e5;
 `;
 
+const Log = styled(Command)`
+    font-weight: 500;
+`;
+
 const ConsoleCommands = (props) => {
     const commandsList = props.commands.map((command: ConsoleLine, i) => {
         if (command.type === 'command') {
@@ -87,7 +98,7 @@ const ConsoleCommands = (props) => {
         } else if (command.type === 'log') {
             return (
                 <div key={i}>
-                    <Command>{command.message}</Command>
+                    <Log>{command.message}</Log>
                 </div>
             );
         }
@@ -106,6 +117,9 @@ const TyperBlock = styled.div`
 const TyperBlockActiveHidden = styled.div`
     display: hidden;
 `;
+const TyperBlocky = styled(TyperBlock)`
+    border: 1px solid white;
+`;
 
 const Typer = () => {
     const [hidden, setHidden] = React.useState(false);
@@ -121,55 +135,129 @@ const Typer = () => {
     }
 }
 
-type Command = (args: string[], utils: CMDUtils) => number;
-type CMDUtils = {
-    log: (...text: string[]) => void
-};
+function reverse(s){
+    return s.split("").reverse().join("");
+}
 
-type ConsoleLine = {
-    type: 'command',
-    command: string,
-    path: string
-} | {
-    type: 'log',
-    message: string
-};
-
-const commands: {[key: string]: Command} = {
-    'cd': (args) => {
-        return 0;
-    },
-    pwd: a => {
-        return 0;
-    },
-    echo: (a, u) => {
-        u.log(...a);
-        return 0;
-    }
-};
-
-export const Console = ( props ) => {
+export const Console = () => {
     const [input, inputState] = useState('');
-    const [consoleData, setConsoleData] = useState<ConsoleLine[]>([{type: 'log', message: 'Hiiii'}]);
+    const [active, setActive] = useState(false);
+    const [consoleData, setConsoleData] = useState<ConsoleLine[]>([
+        {type:'log', message:'Type `help` to see a list of commands', path:'~'}
+    ]);
 
-    const commandExecute = (command, commands) => {
-        if (commands === '') commands = ' ';
-        var path = '~';
-        if (consoleData.at(-1)['path']) {
-            path = consoleData.at(-1)['path'];
+    const fileSystem = {
+        '~': {
+            "readme.txt": "Wow, actually someone interacting with this custom made terminal?",
+            "needwork.txt": "I ned work"
         }
-        setConsoleData([...consoleData, {type: 'command', command: command, path: path}]);
+    };
+
+    const commandsExe = {
+        "help": {
+            "help": "Shows this message",
+            "exe": (command: ConsoleLine) => {
+                var commands: ConsoleLine[] = [
+                    command, 
+                    {type: 'log', message: 'AARON bash, version 0.0.2-release', path: '~'},
+                    {type: 'log', message: 'These shell commands are defined internally. Type `help` to see this list', path: '~'},
+                    {type: 'log', message: 'Type `help name` to find out more about the function `name`', path: '~'},
+                    {type: 'log', message: 'Use `info bash` to find out more about the shell in general.', path: '~'},
+                    {type: 'log', message: '', path: '~'},
+                    {type: 'log', message: 'A star (*) next to a name means that the command is disabled.', path: '~'},
+                    {type: 'log', message: '', path: '~'},
+                ];
+                for (var i = 0; i < Object.keys(commandsExe).length; i++) {
+                    const thisCommand = Object.keys(commandsExe)[i];
+                    commands.push({
+                        type: 'log',
+                        message: thisCommand + "  =>  " + commandsExe[thisCommand].help,
+                        path: '~'
+                    });
+                }
+                setConsoleData(consoleData.concat(commands));
+            }
+        },
+        "clear": {
+            "help": "Clears the terminal",
+            "exe": () => {
+                setConsoleData([]);
+            }
+        },
+        "ls": {
+            "help": "Shows current directory contents",
+            "exe": (command: ConsoleLine) => {
+                const currentPath = command.path.split('/');
+                var newPath = fileSystem;
+                for (var i = 0; i < currentPath.length; i++) {
+                    newPath = newPath[currentPath[i]];
+                }
+
+                var filesList: string = '';
+                for (var i = 0; i < Object.keys(newPath).length; i++) {
+                    filesList += Object.keys(newPath)[i] + " ";
+                }
+                console.log(filesList);
+                
+                setConsoleData([
+                    ...consoleData,
+                    command,
+                    {type: 'log', message: filesList, path: '~'},
+                ]);
+            }
+        },
+        "cat": {
+            "help": "Reads file",
+            "exe": (command: ConsoleLine,  args: string[]) => {
+                const currentPath = command.path.split('/');
+                var newPath = fileSystem;
+                for (var i = 0; i < currentPath.length; i++) {
+                    newPath = newPath[currentPath[i]];
+                }
+
+                var logs = [command];
+                if (args[0]) {
+                    logs.push({type: 'log', message: newPath[args[0]], path: '~'});
+                }
+                setConsoleData(consoleData.concat(logs));
+            }
+        }
+    }
+
+    const commandExecute = (command: string, commands: ConsoleLine[]) => {
         console.log(command);
-        const consoleWrapper = document.querySelector('.consoleWrapper');
+
+        if (command === '') command = ' ';
+        var path = '~';
+
+        if (consoleData.length && consoleData.at(-1).path) {
+            path = consoleData.at(-1).path;
+        }
+        const commandView: ConsoleLine = {type: 'command', command: command, path: path};
+
+        const mainCommand = command.split(' ')[0];
+        const args = command.split(' ');
+        args.shift();
+        if (commandsExe[mainCommand]) {
+            commandsExe[mainCommand].exe(commandView, args);
+        } else {
+            if (command !== ' ') {
+                setConsoleData([...consoleData, commandView, {type: 'log', message: mainCommand+": command not found", path: '~'}]);
+            } else {
+                setConsoleData([...consoleData, commandView]);
+            }
+        }
+
+        const consoleWrapper = document.querySelector('.consoleContent');
         consoleWrapper.scrollTop = consoleWrapper.scrollHeight - consoleWrapper.clientHeight;
     }
 
-    const keyPress = (e) => {
+    const keyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.keyCode === 8) {
             inputState(input.slice(0, -1));
         } else if (e.keyCode === 32) {
             inputState(input + " ");
-        } else if (e.keyCode >= 48 && e.keyCode <= 90) {
+        } else if ((e.keyCode >= 48 && e.keyCode <= 90) || e.keyCode === 190 || e.keyCode === 191) {
             inputState(input+e.key)
         } else if (e.keyCode === 13) {
             const query = input;
@@ -187,14 +275,30 @@ export const Console = ( props ) => {
         latestPath = '~';
     }
 
+    const wrapperRef = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+                setActive(false);
+            } else {
+                setActive(true);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [wrapperRef]);
+
     return (
         <Draggable handle=".handle" defaultPosition={{x: 0, y: 0}}>
-            <Wrapper className="consoleWrapper" onKeyDown={keyPress} tabIndex="0">
-                <Bar className="handle">{props.barName}</Bar>
-                <Content>
+            <Wrapper ref={wrapperRef} className="consoleWrapper" onKeyDown={keyPress} tabIndex={0}>
+                <Bar className="handle">Terminal</Bar>
+                <Content className="consoleContent">
                     <Line>
                         <ConsoleCommands commands={consoleData}></ConsoleCommands>
-                        <User>aaron@<X>x</X>logic</User><Command>:</Command><Path>{latestPath}</Path><Command>$ {input}<Typer /></Command>
+                        <User>aaron@<X>x</X>logic</User><Command>:</Command><Path>{latestPath}</Path><Command>$ {input}{active ? <Typer/> : <TyperBlocky/>}</Command>
                     </Line>
                 </Content>
             </Wrapper>
