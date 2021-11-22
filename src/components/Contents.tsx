@@ -1,61 +1,72 @@
 import React from "react";
-import styled from "styled-components";
-import fs from "fs";
+import styled, { createGlobalStyle } from "styled-components";
+import { Remarkable } from 'remarkable';
 
-import avatar from 'url:./../images/avatar.png';
+const md = new Remarkable({
+    html: true,
+    xhtmlOut: true,
+    breaks: true,
+    langPrefix: 'english-',
+    typographer: true,
+    linkTarget: '_blank'
+});
 
-const Wrapper = styled.div``;
-
-const Content = styled.div`
-    padding: 1rem;
-    background-color: #0E1E25;
-    -webkit-box-shadow: 0px 1px 3px 0px #000000; 
-    box-shadow: 0px 1px 3px 0px #000000;
-    width: 100%;
-    display: flex;
-    color: #fff;
-`;
-
-const Title = styled.div`
-    width: 100%;
-    color: white;
-    font-size: 1.8rem;
+const Wrapper = styled.div`
     margin-top: 3rem;
-    margin-bottom: 2px;
-    margin-left: 1rem;
+    color: #fff;
+    max-width: 900px;
+	width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    white-space: pre-wrap;
 `;
 
-const Image = styled.div`
-    background-image: url(${avatar});
-    height: 8rem;
-    width: 8rem;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin-right: 1rem;
-    border-radius: .8rem;
-`;
-
-const Text = styled.div``;
-
-const Small = styled(Text)`
-    font-size: 10px;
+const GlobalStyle = createGlobalStyle`
+    #markdownContent {
+        text-align: justify;
+        text-justify: inter-word;
+        h1 {
+            margin-bottom: .3rem;
+        }
+        h2, h3, h4, h5, h6 {
+            margin-bottom: -1rem;
+            margin-top: 0.5rem;
+        }
+        p {
+            margin-top: .2rem;
+            margin-bottom: .2rem;
+        }
+        img {
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+        a, a:link {
+            text-decoration: underline;
+            color: #fff;
+            font-weight: 500;
+            transition: 250ms;
+        }
+        a:hover {
+            text-shadow: 2px 2px 5px rgba(255,255,255,0.65);
+        }
+        a:visited, a:active {
+            font-weight: 400;
+            text-shadow: none !important;
+        }
+        br {
+            display: block;
+            margin: -15px 0;
+            line-height: 10px;
+            content: " ";
+        }
+    }
 `;
 
 export const Contents = ( props ) => {
     return (
-        <Wrapper>
-            <Title>About me</Title>
-            <Content>
-                <Image/>
-                <Text>
-                    Hi, I'm Aaron<br/>
-                    A 19 year old developer from NL<br/>
-                    Over 7 years of experience developing the web<br/>
-                    4 years experience in freelance development<br/><br/>
-                    <Small>(Currently being bored at university)</Small>
-                </Text>
-            </Content>
-        </Wrapper>
+        <div>
+            <Wrapper id="markdownContent" dangerouslySetInnerHTML={{__html: md.render(props.pageContent)}}/>
+            <GlobalStyle/>
+        </div>
     );
 }

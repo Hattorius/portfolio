@@ -45,8 +45,6 @@ export const Navbar = ( props ) => {
             <MenuLeft>
                 <MenuItem className={(props.currentPage === 'aboutme.md' ? 'active' : '')} onClick={() => props.goToHandler('aboutme.md')}>aboutme.md</MenuItem>
                 <EggsOrSomething>/</EggsOrSomething>
-                <MenuItem className={(props.currentPage === 'skills.md' ? 'active' : '')} onClick={() => props.goToHandler('skills.md')}>skills.md</MenuItem>
-                <EggsOrSomething>/</EggsOrSomething>
                 <MenuItem className={(props.currentPage === 'projects.md' ? 'active' : '')} onClick={() => props.goToHandler('projects.md')}>projects.md</MenuItem>
                 <EggsOrSomething>/</EggsOrSomething>
                 <MenuItem className={(props.currentPage === 'blog.md' ? 'active' : '')} onClick={() => props.goToHandler('blog.md')}>epic_blog.md</MenuItem>

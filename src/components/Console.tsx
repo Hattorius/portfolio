@@ -2,7 +2,15 @@ import React, { useEffect, useState, useRef } from "react";
 import Draggable from "react-draggable";
 import styled from "styled-components";
 
-import aboutme_md from 'url:./../pages/aboutme.md';
+var files = {};
+
+// import aboutme_md from 'url:./../pages/aboutme.md';
+// import skills_md from 'url:./../pages/skills.md';
+
+// const files = {
+//     'aboutme.md': aboutme_md,
+//     'skills.md': skills_md
+// };
 
 const Wrapper = styled.div`
     position: absolute;
@@ -34,11 +42,11 @@ const Bar = styled.div`
     margin: 0px;
     background-color: #222D32;
     width: 100%;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     padding-left: 6px;
     color: #c9c9c9;
-    font-size: 12px;
+    font-size: 14px;
     &:active {
         cursor: grabbing;
     }
@@ -63,6 +71,7 @@ const Line = styled.div`
     width: 100%;
     font-weight: bold;
     font-size: 12px;
+    white-space: pre-wrap;
 `;
 
 const User = styled.div`
@@ -137,6 +146,20 @@ const Typer = () => {
     }
 }
 
+const getFile: void = (url: string, cb: Function) => {
+    var r = new XMLHttpRequest();
+    r.addEventListener("load", cb);
+    r.open("GET", url);
+    r.send();
+}
+
+const getFileSync: XMLHttpRequestResponseType = (url: string) => {
+    var r = new XMLHttpRequest();
+    r.open("GET", url, false);
+    r.send();
+    return r;
+}
+
 export const Console = ( props ) => {
     const [input, inputState] = useState('');
     const [active, setActive] = useState(false);
@@ -144,11 +167,14 @@ export const Console = ( props ) => {
         {type:'log', message:'Type `help` to see a list of commands', path:'~'}
     ]);
     const [currentPage, setCurrentPage] = useState('');
+    const [load, setLoad] = useState(0);
 
     const fileSystem = {
         '~': {
             "readme.txt": "Wow, actually someone interacting with this custom made terminal?",
-            "needwork.txt": "I ned work"
+            "aboutme.md": '',
+            "skills.md": '',
+            "cool_people_only.txt": "Hi cool person!\nI'm looking for cool work to do next to my study. Contact me maybe?"
         }
     };
 
@@ -215,11 +241,13 @@ export const Console = ( props ) => {
                 }
 
                 var logs = [command];
+                if (typeof files[args[0]] !== 'undefined') {
+                    props.goToHandler(args[0]);
+                }
                 if (args[0]) {
                     logs.push({type: 'log', message: newPath[args[0]], path: '~'});
                 }
                 setConsoleData(consoleData.concat(logs));
-                // do something with props.goToHandler(page);
             }
         }
     }
@@ -247,9 +275,6 @@ export const Console = ( props ) => {
                 setConsoleData([...consoleData, commandView]);
             }
         }
-
-        const consoleWrapper = document.querySelector('.consoleContent');
-        consoleWrapper.scrollTop = consoleWrapper.scrollHeight - consoleWrapper.clientHeight;
     }
 
     const keyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -257,7 +282,7 @@ export const Console = ( props ) => {
             inputState(input.slice(0, -1));
         } else if (e.keyCode === 32) {
             inputState(input + " ");
-        } else if ((e.keyCode >= 48 && e.keyCode <= 90) || e.keyCode === 190 || e.keyCode === 191) {
+        } else if ((e.keyCode >= 48 && e.keyCode <= 90) || e.keyCode === 190 || e.keyCode === 191 || e.keyCode === 189) {
             inputState(input+e.key)
         } else if (e.keyCode === 13) {
             const query = input;
@@ -291,12 +316,58 @@ export const Console = ( props ) => {
         };
     }, [wrapperRef]);
 
+    if (props.currentPage !== currentPage) {
+        var openedFile = null;
+
+        if (Object.keys(files).length === 0) {
+            const pages = getFileSync('/public/pages.txt');
+            const data = pages.responseText.split(/\r?\n/);
+            for (var i = 0; i < data.length; i++) {
+                files[data[i]] = '/public/'+data[i];
+            }
+            console.log("Posts loaded");
+        }
+
+        getFile(files[props.currentPage], (res) => {
+            openedFile = res.currentTarget.responseText;
+            console.log(res.currentTarget.responseText);
+            setConsoleData([
+                ...consoleData,
+                {type: 'command', command: 'cat '+props.currentPage, path: '~'},
+                {type: 'log', message: 'Downloading '+props.currentPage+'...', path: '~'},
+                {type: 'log', message: openedFile, path: '~'}
+            ]);
+            props.pageContents(openedFile);
+        });
+        setConsoleData([
+            ...consoleData,
+            {type: 'command', command: 'cat '+props.currentPage, path: '~'},
+            {type: 'log', message: 'Downloading '+props.currentPage+'...', path: '~'}
+        ]);
+        setCurrentPage(props.currentPage);
+        var url = window.location.protocol + "//" + window.location.hostname;
+        if (window.location.port) url += ":" + window.location.port.toString();
+        url += "/";
+        window.history.pushState({}, '', url + props.currentPage);
+    }
+
+    const scrollToBottom = useRef(null);
+    const contentHolder = useRef(null);
+    useEffect(() => {
+        window.setTimeout(() => {
+            scrollToBottom.current.scroll({
+                top: contentHolder.current.offsetHeight,
+                behavior: 'smooth'
+            });
+        }, 200);
+    });
+
     return (
         <Draggable handle=".handle" defaultPosition={{x: 0, y: 0}}>
             <Wrapper ref={wrapperRef} className="consoleWrapper" onKeyDown={keyPress} tabIndex={0}>
                 <Bar className="handle">Terminal</Bar>
-                <Content className="consoleContent">
-                    <Line>
+                <Content ref={scrollToBottom}>
+                    <Line ref={contentHolder}>
                         <ConsoleCommands commands={consoleData}></ConsoleCommands>
                         <User>aaron@<X>x</X>logic</User><Command>:</Command><Path>{latestPath}</Path><Command>$ {input}{active ? <Typer/> : <TyperBlocky/>}</Command>
                     </Line>

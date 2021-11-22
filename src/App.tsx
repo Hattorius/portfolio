@@ -23,45 +23,39 @@ const GlobalStyle = createGlobalStyle`
 
 const Wrapper = styled.div`
 	background: #020B0D;
-	display: flex;
-	justify-content: center;
+    width: 100%;
     min-height: 100vh;
 `;
 
 const Center = styled.div`
 	max-width: 900px;
 	width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 `;
 
-const Button = styled.div`
-    padding: 0.4rem 1rem;
-    background-color: blue;
-    border-radius: 1rem;
-    color: white;
-    display: inline-block;
-    margin: 4rem;
-    cursor:pointer;
-`;
+if (window.location.pathname.split('/')[1]) {
+    var currentPath = window.location.pathname.split('/')[1];
+} else {
+    var currentPath = 'aboutme.md';
+}
 
 export const App = () => {
-    const [currentPage, setCurrentPage] = useState('aboutme.md');
+    const [currentPage, setCurrentPage] = useState(currentPath);
+    const [currentPageContents, setCurrentPageContents] = useState('');
 
     const goToPage = (page: string) => {
         setCurrentPage(page);
-        console.log(page);
-    }
-
-    const pageContents = (pageContent: string) => {
-
+        console.log("Go to page",page);
     }
 
 	return (
 		<Wrapper>
 			<Center>
                 <Navbar goToHandler={goToPage} currentPage={currentPage}/>
-                <Console goToHandler={goToPage} currentPage={currentPage} pageContents={pageContents}/>
-                <Contents/>
+                <Console goToHandler={goToPage} currentPage={currentPage} pageContents={setCurrentPageContents}/>
             </Center>
+            <Contents pageContent={currentPageContents}/>
 			<GlobalStyle />
 		</Wrapper>
 	);
