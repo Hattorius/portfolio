@@ -4,7 +4,11 @@ My (sometimes) cool stuff I work on, or with my friends.
 
 ------
 
-### [22-11-2021] xlogic.sh <i class="devicon-typescript-plain"></i> 
+### [22-11-2021] xlogic.sh <i class="devicon-typescript-plain"></i> <i class="devicon-react-original"></i> <i class="devicon-html5-plain"></i> <i class="devicon-css3-plain"></i>
+
+This website you're on right now. Has a little introduction about me, shows my projects, contact information and my (epic) blog where I rant about how stuff in the world is bad or something.
+
+View the project: [[Portfolio](https://github.com/Hattorius/portfolio)]
 
 ------
 
