@@ -49,7 +49,7 @@ const Content = styled.div`
     padding: 6px;
     padding-top: 12px;
     flex-grow: 1;
-    overflow-y: overlay;
+    overflow-y: auto;
     padding-bottom: 1rem;
     &::-webkit-scrollbar {
         display: none;
