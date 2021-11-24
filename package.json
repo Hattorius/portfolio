@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "rm -rf dist && mkdir dist && mkdir dist/public && cp -r public/* dist/public && parcel src/index.html",
-    "build": "rm -rf dist && parcel build ./src/index.html && cp -r public/* dist/public"
+    "build": "rm -rf dist && parcel build ./src/index.html && cp -r public dist/"
   },
   "staticFiles": {
     "staticPath": "public",
