@@ -4,6 +4,14 @@ My (sometimes) cool stuff I work on, or with my friends.
 
 ------
 
+### [24-11-2021] plshelp <i class="devicon-javascript-plain"></i> <i class="devicon-nodejs-plain"></i>
+
+New NPM package I've made for funs. For people that code in node.js / typescript: whenever you get an error the module will directly search for any answers on Stackoverflow.
+
+View the project: [[View on NPM](https://www.npmjs.com/package/plshelp)] [[View the source](https://github.com/Hattorius/plshelp)]
+
+------
+
 ### [22-11-2021] xlogic.sh <i class="devicon-typescript-plain"></i> <i class="devicon-react-original"></i> <i class="devicon-html5-plain"></i> <i class="devicon-css3-plain"></i> 
 
 This website you're on right now. Has a little introduction about me, shows my projects, contact information and my (epic) blog where I rant about how stuff in the world is bad or something.
@@ -24,7 +32,7 @@ View the project: [[Tradingview ticker](https://github.com/Hattorius/Tradingview
 
 Microbuds.io is a website showing the statistics of the now in beta [Microbuddies.io](https://microbuddies.io). Microbuddies is an NFT project where you have to breed your buddies. Microbuds.io gathers all the information about the project, and shows it in a simple dashboard.
 
-View the project: [[Etherscan API](https://github.com/Hattorius/microbuddies-scraper)], [[Microbuddies scraper](https://github.com/Hattorius/Microbuddies-trait-getter-from-API)]
+View the project: [[Etherscan API](https://github.com/Hattorius/microbuddies-scraper)] [[Microbuddies scraper](https://github.com/Hattorius/Microbuddies-trait-getter-from-API)]
 
 ------
 
