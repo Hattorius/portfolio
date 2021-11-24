@@ -145,7 +145,7 @@ const getFile: void = (url: string, cb: Function) => {
     r.send();
 }
 
-const getFileSync: XMLHttpRequestResponseType = (url: string) => {
+const getFileSync: XMLHttpRequestResponse = (url: string) => {
     var r = new XMLHttpRequest();
     r.open("GET", url, false);
     r.send();
@@ -163,14 +163,15 @@ export const Console = ( props ) => {
 
     const fileSystem = {
         '~': {
-            "readme.txt": "Wow, actually someone interacting with this custom made terminal?",
             "aboutme.md": '',
-            "projects.md": '',
-            "epic_blog.md": '',
             "contact.md": '',
+            "cool_people_only.txt": "Hi, apparently you're cool enough to open this file. If you got any jobs open, send me a message at my contact page",
+            "epic_blog.md": '',
             "posts": {
                 "epic_ipfs_stuff.md": ''
-            }
+            },
+            "projects.md": '',
+            "readme.txt": "Wow, actually someone interacting with this custom made terminal?"
         }
     };
 
@@ -216,7 +217,11 @@ export const Console = ( props ) => {
 
                 var filesList: string = '';
                 for (var i = 0; i < Object.keys(newPath).length; i++) {
-                    filesList += Object.keys(newPath)[i] + " ";
+                    if (typeof newPath[Object.keys(newPath)[i]] === 'object') {
+                        filesList += "[" + Object.keys(newPath)[i] + "] ";
+                    } else {
+                        filesList += Object.keys(newPath)[i] + " ";
+                    }
                 }
                 console.log(filesList);
                 
@@ -249,9 +254,13 @@ export const Console = ( props ) => {
                 if (typeof newPath[args[0]] === "object") {
                     newPath = '~/'+args[0];
                 }
-                if (args[0]) {
-                    logs.push({type: 'log', message: newPath[args[0]], path: newPath});
+
+                if (args[0] && typeof newPath[args[0]] !== 'undefined') {
+                    logs.push({type: 'log', message: newPath[args[0]], path: command.path});
+                } else {
+                    logs.push({type: 'log', message: "File not found", path: command.path});
                 }
+
                 setConsoleData(consoleData.concat(logs));
             }
         },
@@ -264,11 +273,11 @@ export const Console = ( props ) => {
                     newPath = newPath[currentPath[i]];
                 }
 
-                if (args[0] == '..') {
-                    setConsoleData([...consoleData, command, {type: 'log', message: '', path: '~'}]);
+                if (args[0] == '..' || typeof args[0] === 'undefined') {
+                    setConsoleData([...consoleData, command, {type: 'change', message: '', path: '~'}]);
                 } else if (typeof newPath[args[0]] === "object") {
                     newPath = '~/'+args[0];
-                    setConsoleData([...consoleData, command, {type: 'log', message: '', path: newPath}]);
+                    setConsoleData([...consoleData, command, {type: 'change', message: '', path: newPath}]);
                 } else {
                     setConsoleData([...consoleData, command, {type: 'log', message: 'Is not a directory!', path: command.path}]);
                 }

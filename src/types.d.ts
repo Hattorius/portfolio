@@ -5,6 +5,8 @@ type ConsoleLine = ({
 } | {
     type: 'log',
     message: string
+} | {
+    type: 'change'
 }) & {
     path: string
 };
