@@ -1,6 +1,6 @@
 # My very epic blog
 
-Finally a place to rant about stuff that annoy me. And talk about stuff that fascinates me. Thank you for reading this..
+Finally, a place to rant about stuff that annoys me. And talk about stuff that fascinates me. Thank you for reading this…
 
 ------
 
