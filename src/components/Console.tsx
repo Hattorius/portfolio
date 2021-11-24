@@ -165,10 +165,11 @@ export const Console = ( props ) => {
         '~': {
             "readme.txt": "Wow, actually someone interacting with this custom made terminal?",
             "aboutme.md": '',
-            "skills.md": '',
-            "cool_people_only.txt": "Hi cool person!\nI'm looking for cool work to do next to my study. Contact me maybe?",
+            "projects.md": '',
+            "epic_blog.md": '',
+            "contact.md": '',
             "posts": {
-                "test.md": 'Hello!'
+                "epic_ipfs_stuff.md": ''
             }
         }
     };
