@@ -19,6 +19,10 @@ const Wrapper = styled.div`
     margin-left: auto;
     margin-right: auto;
     white-space: pre-wrap;
+    @media (max-width: 679px) {
+        padding: 1rem;
+        margin-top: 0px;
+    }
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -41,10 +45,11 @@ const GlobalStyle = createGlobalStyle`
             margin-right: 1rem;
         }
         a, a:link {
-            text-decoration: underline;
+            text-decoration: none;
             color: #fff;
             font-weight: 500;
             transition: 250ms;
+            border-bottom: 1px solid #fff;
         }
         a:hover {
             text-shadow: 2px 2px 5px rgba(255,255,255,0.65);

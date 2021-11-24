@@ -22,8 +22,8 @@
     "typescript": "^4.5.2"
   },
   "scripts": {
-    "start": "rm -rf dist && mkdir dist && mkdir dist/public && cp public/* dist/public && parcel src/index.html",
-    "build": "rm -rf dist && mkdir dist && mkdir dist/public && cp public/* dist/public && parcel build src/index.html"
+    "start": "rm -rf dist && mkdir dist && mkdir dist/public && cp -r public/* dist/public && parcel src/index.html",
+    "build": "rm -rf dist && mkdir dist && mkdir dist/public && cp -r public/* dist/public && parcel build src/index.html"
   },
   "staticFiles": {
     "staticPath": "public",

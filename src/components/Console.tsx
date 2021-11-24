@@ -4,14 +4,6 @@ import styled from "styled-components";
 
 var files = {};
 
-// import aboutme_md from 'url:./../pages/aboutme.md';
-// import skills_md from 'url:./../pages/skills.md';
-
-// const files = {
-//     'aboutme.md': aboutme_md,
-//     'skills.md': skills_md
-// };
-
 const Wrapper = styled.div`
     position: absolute;
     background-color: #2d2e2f;
@@ -174,7 +166,10 @@ export const Console = ( props ) => {
             "readme.txt": "Wow, actually someone interacting with this custom made terminal?",
             "aboutme.md": '',
             "skills.md": '',
-            "cool_people_only.txt": "Hi cool person!\nI'm looking for cool work to do next to my study. Contact me maybe?"
+            "cool_people_only.txt": "Hi cool person!\nI'm looking for cool work to do next to my study. Contact me maybe?",
+            "posts": {
+                "test.md": 'Hello!'
+            }
         }
     };
 
@@ -227,13 +222,13 @@ export const Console = ( props ) => {
                 setConsoleData([
                     ...consoleData,
                     command,
-                    {type: 'log', message: filesList, path: '~'},
+                    {type: 'log', message: filesList, path: command.path},
                 ]);
             }
         },
         "cat": {
             "help": "Reads file",
-            "exe": (command: ConsoleLine,  args: string[]) => {
+            "exe": (command: ConsoleLine, args: string[]) => {
                 const currentPath = command.path.split('/');
                 var newPath = fileSystem;
                 for (var i = 0; i < currentPath.length; i++) {
@@ -241,13 +236,44 @@ export const Console = ( props ) => {
                 }
 
                 var logs = [command];
-                if (typeof files[args[0]] !== 'undefined') {
-                    props.goToHandler(args[0]);
+                if (command.path.replace('~','').replace('/','') == '') {
+                    var file = command.path.replace('~','').replace('/','') + args[0];
+                } else {
+                    var file = command.path.replace('~','').replace('/','') + '/' + args[0];
+                }
+                
+                if (typeof files[file] !== 'undefined') {
+                    props.goToHandler(file);
+                }
+                if (typeof newPath[args[0]] === "object") {
+                    newPath = '~/'+args[0];
                 }
                 if (args[0]) {
-                    logs.push({type: 'log', message: newPath[args[0]], path: '~'});
+                    logs.push({type: 'log', message: newPath[args[0]], path: newPath});
                 }
                 setConsoleData(consoleData.concat(logs));
+            }
+        },
+        "cd": {
+            "help": "Goes to file",
+            "exe": (command: ConsoleLine, args: string[]) => {
+                const currentPath = command.path.split('/');
+                var newPath = fileSystem;
+                for (var i = 0; i < currentPath.length; i++) {
+                    newPath = newPath[currentPath[i]];
+                }
+
+                if (args[0] == '..') {
+                    setConsoleData([...consoleData, command, {type: 'log', message: '', path: '~'}]);
+                } else if (typeof newPath[args[0]] === "object") {
+                    newPath = '~/'+args[0];
+                    setConsoleData([...consoleData, command, {type: 'log', message: '', path: newPath}]);
+                } else {
+                    setConsoleData([...consoleData, command, {type: 'log', message: 'Is not a directory!', path: command.path}]);
+                }
+
+
+                console.log(newPath);
             }
         }
     }
@@ -270,7 +296,7 @@ export const Console = ( props ) => {
             commandsExe[mainCommand].exe(commandView, args);
         } else {
             if (command !== ' ') {
-                setConsoleData([...consoleData, commandView, {type: 'log', message: mainCommand+": command not found", path: '~'}]);
+                setConsoleData([...consoleData, commandView, {type: 'log', message: mainCommand+": command not found", path: path}]);
             } else {
                 setConsoleData([...consoleData, commandView]);
             }
@@ -330,7 +356,6 @@ export const Console = ( props ) => {
 
         getFile(files[props.currentPage], (res) => {
             openedFile = res.currentTarget.responseText;
-            console.log(res.currentTarget.responseText);
             setConsoleData([
                 ...consoleData,
                 {type: 'command', command: 'cat '+props.currentPage, path: '~'},

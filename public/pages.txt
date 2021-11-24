@@ -1,3 +1,9 @@
 aboutme.md
 
 projects.md
+
+contact.md
+
+epic_blog.md
+
+posts/epic_ipfs_stuff.md

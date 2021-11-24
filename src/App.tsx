@@ -19,6 +19,24 @@ const GlobalStyle = createGlobalStyle`
     .active {
         color: #fefefe;
     }
+    .red {
+        color: #ff5459;
+    }
+    .post-link {
+        padding: .3rem;
+        transition: 300ms;
+        width: max-content;
+        margin: .4rem;
+    }
+    .post-link:hover {
+        background: gray;   
+    }
+    .holder {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: baseline;
+    }
 `;
 
 const Wrapper = styled.div`
@@ -34,8 +52,10 @@ const Center = styled.div`
     margin-right: auto;
 `;
 
+
 if (window.location.pathname.split('/')[1]) {
-    var currentPath = window.location.pathname.split('/')[1];
+    var currentPath = window.location.pathname.replace('/','');
+    console.log(currentPath);
 } else {
     var currentPath = 'aboutme.md';
 }

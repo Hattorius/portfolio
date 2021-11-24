@@ -4,14 +4,21 @@ import styled from "styled-components";
 const Wrapper = styled.div`
     border-bottom: #243238 2px solid;
     padding: 1.4rem 0px;
+    @media (max-width: 679px) {
+        padding: .4rem 0px;
+    }
     display: flex;
     justify-content: space-between;
+    overflow-x: auto;
 `;
 
 const MenuLeft = styled.div`
-    display: flex;
+    display: block;
     justify-content: center;
     width: 100%;
+    @media (min-width: 680px) {
+        display: flex;
+    }
 `;
 
 const MenuItem = styled.div`
@@ -23,9 +30,15 @@ const MenuItem = styled.div`
     &:hover {
         color: #fefefe;
     }
-    &:first-child {
-        margin: 0px;
-        margin-right: 1rem;
+    @media (min-width: 680px) {
+        &:first-child {
+            margin: 0px;
+            margin-right: 1rem;
+        }
+    }
+    @media (max-width: 679px) {
+        padding: 4px;
+        text-align: center;
     }
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -37,6 +50,10 @@ const MenuItem = styled.div`
 
 const EggsOrSomething = styled(MenuItem)`
     color: #575a5c;
+    display: none;
+    @media (min-width: 680px) {
+        display: block;
+    }
 `;
 
 export const Navbar = ( props ) => {
@@ -47,7 +64,7 @@ export const Navbar = ( props ) => {
                 <EggsOrSomething>/</EggsOrSomething>
                 <MenuItem className={(props.currentPage === 'projects.md' ? 'active' : '')} onClick={() => props.goToHandler('projects.md')}>projects.md</MenuItem>
                 <EggsOrSomething>/</EggsOrSomething>
-                <MenuItem className={(props.currentPage === 'blog.md' ? 'active' : '')} onClick={() => props.goToHandler('blog.md')}>epic_blog.md</MenuItem>
+                <MenuItem className={(props.currentPage === 'epic_blog.md' ? 'active' : '')} onClick={() => props.goToHandler('epic_blog.md')}>epic_blog.md</MenuItem>
                 <EggsOrSomething>/</EggsOrSomething>
                 <MenuItem className={(props.currentPage === 'contact.md' ? 'active' : '')} onClick={() => props.goToHandler('contact.md')}>contact.md</MenuItem>
             </MenuLeft>
