@@ -168,7 +168,8 @@ export const Console = ( props ) => {
             "cool_people_only.txt": "Hi, apparently you're cool enough to open this file. If you got any jobs open, send me a message at my contact page",
             "epic_blog.md": '',
             "posts": {
-                "epic_ipfs_stuff.md": ''
+                "epic_ipfs_stuff.md": '',
+                "monthly_payment_bs.md": ''
             },
             "projects.md": '',
             "readme.txt": "Wow, actually someone interacting with this custom made terminal?"

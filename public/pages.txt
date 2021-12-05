@@ -7,3 +7,5 @@ contact.md
 epic_blog.md
 
 posts/epic_ipfs_stuff.md
+
+posts/monthly_payment_bs.md
