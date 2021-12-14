@@ -4,6 +4,14 @@ My (sometimes) cool stuff I work on, or with my friends.
 
 ------
 
+### [24-11-2021] eth-vanity-creator <i class="devicon-svelte-plain"></i> <i class="devicon-javascript-plain"></i> <i class="devicon-nodejs-plain"></i>
+
+Website that generates thousands of ethereum addresses a second searching for an address ending or starting with a string that you gave. Built in Svelte!
+
+View the project: [[View the source](https://github.com/Hattorius/eth-vanity-creator)]
+
+------
+
 ### [24-11-2021] plshelp <i class="devicon-javascript-plain"></i> <i class="devicon-nodejs-plain"></i>
 
 New NPM package I've made for funs. For people that code in node.js / typescript: whenever you get an error the module will directly search for any answers on Stackoverflow.
