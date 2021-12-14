@@ -4,7 +4,7 @@ My (sometimes) cool stuff I work on, or with my friends.
 
 ------
 
-### [24-11-2021] eth-vanity-creator <i class="devicon-svelte-plain"></i> <i class="devicon-javascript-plain"></i> <i class="devicon-nodejs-plain"></i>
+### [12-12-2021] eth-vanity-creator <i class="devicon-svelte-plain"></i> <i class="devicon-javascript-plain"></i> <i class="devicon-nodejs-plain"></i>
 
 Website that generates thousands of ethereum addresses a second searching for an address ending or starting with a string that you gave. Built in Svelte!
 
