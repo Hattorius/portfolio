@@ -4,6 +4,14 @@ My (sometimes) cool stuff I work on, or with my friends.
 
 ------
 
+### [17-12-2021] microbuddies-tools <i class="devicon-python-plain"></i>
+
+Yet again a project based around [Microbuddies.io](https://microbuddies.io). This time it uses the data scraped from the previous project and makes it easy to use for future development!
+
+View the project: [[View the source](https://github.com/Hattorius/microbuddies-tools)]
+
+------
+
 ### [12-12-2021] eth-vanity-creator <i class="devicon-svelte-plain"></i> <i class="devicon-javascript-plain"></i> <i class="devicon-nodejs-plain"></i>
 
 Website that generates thousands of ethereum addresses a second searching for an address ending or starting with a string that you gave. Built in Svelte!
