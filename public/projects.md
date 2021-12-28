@@ -4,6 +4,14 @@ My (sometimes) cool stuff I work on, or with my friends.
 
 ------
 
+### [27-12-2021] Discord account generator <i class="devicon-python-plain"></i>
+
+This is a bit less on the white side of the internet. This program creates a Discord account and verifies it's email and phone number within 90 seconds. It's fully automized and bypasses captcha's to do so. These accounts then can be used to mass advertise by direct messaging users. (I'm sorry)
+
+Sadly this project isn't public.
+
+------
+
 ### [17-12-2021] microbuddies-tools <i class="devicon-python-plain"></i>
 
 Yet again a project based around [Microbuddies.io](https://microbuddies.io). This time it uses the data scraped from the previous project and makes it easy to use for future development!
