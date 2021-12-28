@@ -8,7 +8,7 @@ My (sometimes) cool stuff I work on, or with my friends.
 
 This is a bit less on the white side of the internet. This program creates a Discord account and verifies it's email and phone number within 90 seconds. It's fully automized and bypasses captcha's to do so. These accounts then can be used to mass advertise by direct messaging users. (I'm sorry)
 
-Sadly this project isn't public.
+This project isn't public or for sale.
 
 ------
 
