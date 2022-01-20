@@ -8,7 +8,7 @@ My (sometimes) cool stuff I work on, or with my friends.
 
 Fun and simple Solidity contract! It let's people highfive eachother on the blockchain, and rewards the highfive receiver with a "HIGHFIVE" token. I don't know, just felt like doing this.
 
-View the project: [[View the source](https://github.com/Hattorius/discord-account-generator)]
+Source isn't available as I might actually do something with this for once
 
 ------
 
