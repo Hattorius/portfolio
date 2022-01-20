@@ -4,6 +4,14 @@ My (sometimes) cool stuff I work on, or with my friends.
 
 ------
 
+### [18-01-2022] Solidity highfive contract <span class="iconify" data-icon="simple-icons:solidity"></span>
+
+Fun and simple Solidity contract! It let's people highfive eachother on the blockchain, and rewards the highfive receiver with a "HIGHFIVE" token. I don't know, just felt like doing this.
+
+View the project: [[View the source](https://github.com/Hattorius/discord-account-generator)]
+
+------
+
 ### [27-12-2021] Discord account generator <i class="devicon-python-plain"></i>
 
 This is a bit less on the white side of the internet. This program creates a Discord account and verifies it's email and phone number within 90 seconds. It's fully automized and solves captcha's to do so. These accounts then can be used to mass advertise by direct messaging users. (I'm sorry)
