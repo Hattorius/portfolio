@@ -15,27 +15,6 @@ const GlobalStyle = createGlobalStyle`
     * {
         box-sizing: border-box;
     }
-    .active {
-        color: #fefefe;
-    }
-    .red {
-        color: #ff5459;
-    }
-    .post-link {
-        padding: .3rem;
-        transition: 300ms;
-        width: max-content;
-        margin: .4rem;
-    }
-    .post-link:hover {
-        background: gray;   
-    }
-    .holder {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: baseline;
-    }
 `;
 
 render(<App />, document.getElementById('root'));
