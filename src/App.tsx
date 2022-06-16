@@ -1,4 +1,6 @@
 import { createGlobalStyle } from "styled-components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Index } from "./routes";
 
 const GlobalStyle = createGlobalStyle`
     html, body {
@@ -6,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
         min-height: 100vh;
         margin: 0;
         padding: 0;
-        font-family: sans-serif, monospace;
+        font-family: 'Lato', sans-serif, monospace;
         overflow-x: hidden;
     }
     * {
@@ -18,7 +20,11 @@ export const App = () => {
 	return (
 		<>
             <GlobalStyle />
-            Hello World!
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Index/>}/>
+                </Routes>
+            </BrowserRouter>
         </>
 	);
 };
