@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import home from "../../public/home.jpg";
 
 const Wrapper = styled.div`
     position: absolute;
@@ -19,7 +18,7 @@ const Image = styled.img`
 export const VideoIndex = () => {
     return (
         <Wrapper>
-            <Image src={home}/>
+            <Image src={"/public/home.jpg"}/>
         </Wrapper>
     );
 }

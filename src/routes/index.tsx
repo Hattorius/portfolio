@@ -2,9 +2,7 @@ import styled from "styled-components";
 import { VideoIndex } from "../components/VideoIndex";
 import { Icon } from '@iconify/react';
 import { Technologies } from "../components/Technologies";
-import scylla from "../../public/scylla.png"
 import { Language } from "../components/Language";
-import clientside_hashing from "../../public/clientside-hashing.png";
 import { useRef, useState } from "react";
 
 const Page = styled.div`
@@ -268,7 +266,7 @@ export const Index = () => {
                                 {name: 'MySQL', icon: 'devicon-mysql-plain'},
                                 {name: 'Sqlite3', icon: 'devicon-sqlite-plain'},
                                 {name: 'MongoDB', icon: 'devicon-mongodb-plain'},
-                                {name: 'ScyllaDB', icon: <img src={scylla} width="48"/>}
+                                {name: 'ScyllaDB', icon: <img src={"/public/scylla.png"} width="48"/>}
                             ]
                         },
                         {
@@ -325,13 +323,13 @@ export const Index = () => {
                             <StoriesWrapper>
                                 <Story>
                                     <StoryImageHolder>
-                                        <StoryImage src={clientside_hashing}/>
+                                        <StoryImage src={"/public/clientside-hashing.png"}/>
                                     </StoryImageHolder>
                                     Normalize client-side hashing
                                 </Story>
                                 <Story>
                                     <StoryImageHolder>
-                                        <StoryImage src={clientside_hashing}/>
+                                        <StoryImage src={"/public/clientside-hashing.png"}/>
                                     </StoryImageHolder>
                                     Normalize client-side hashing
                                 </Story>
@@ -349,7 +347,7 @@ export const Index = () => {
                                 </Story>
                                 <Story className={active ? 'Story2' : ''}>
                                     <StoryImageHolder>
-                                        <StoryImage src={clientside_hashing}/>
+                                        <StoryImage src={"/public/clientside-hashing.png"}/>
                                     </StoryImageHolder>
                                     Normalize client-side hashing
                                 </Story>
