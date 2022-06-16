@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import home from "../images/home.jpg";
+import home from "../../public/home.jpg";
 
 const Wrapper = styled.div`
     position: absolute;

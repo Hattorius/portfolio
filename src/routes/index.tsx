@@ -1,10 +1,10 @@
-import styled, { CSSProperties } from "styled-components";
+import styled from "styled-components";
 import { VideoIndex } from "../components/VideoIndex";
 import { Icon } from '@iconify/react';
 import { Technologies } from "../components/Technologies";
-import scylla from "../images/scylla.png"
+import scylla from "../../public/scylla.png"
 import { Language } from "../components/Language";
-import clientside_hashing from "../images/clientside-hashing.png";
+import clientside_hashing from "../../public/clientside-hashing.png";
 import { useRef, useState } from "react";
 
 const Page = styled.div`
