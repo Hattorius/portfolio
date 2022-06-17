@@ -1,10 +1,9 @@
-import { IconProps } from "@iconify/react";
-import { ReactElement, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 
 const LanguageLable = styled.span`
     background: #e6e6e6;
-    padding: 2px 8px;
+    padding: 0px 8px;
     user-select: none;
 `;
 

@@ -18,7 +18,7 @@ const Image = styled.img`
 export const VideoIndex = () => {
     return (
         <Wrapper>
-            <Image src={"/public/home.jpg"}/>
+            <Image src={"/public/home.jpg"} height="500" width="760"/>
         </Wrapper>
     );
 }

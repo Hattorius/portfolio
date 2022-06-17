@@ -3,7 +3,7 @@ import { VideoIndex } from "../components/VideoIndex";
 import { Icon } from '@iconify/react';
 import { Technologies } from "../components/Technologies";
 import { Language } from "../components/Language";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Page = styled.div`
     width: 100vw;
@@ -56,9 +56,8 @@ const SubTitle = styled.h1`
 `;
 
 const WhatIDoHolder = styled.div`
-    width: 300px;
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+    gap: 3rem;
     @media (max-width: 1000px) {
         display: none;
     }
@@ -186,22 +185,180 @@ const SpecialWrapper = styled(Wrapper)`
     transition: 500ms ease-out;
 `;
 
+const Content = styled.div`
+    padding-left: 2rem;
+    padding-right: 2rem;
+`;
+
+const Contact = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+`;
+
+const ContactHalf = styled.div`
+    flex-grow: 1;
+`;
+
+const ContactTable = styled.table`
+    width: 100%;
+`;
+
+const ContactRow = styled.tr``;
+
+const ContactValue = styled.td`
+    padding-top: 1rem;
+    font-size: 1.2rem;
+`;
+
+const Link = styled.a`
+    color: #000;
+`;
+
+const CornerLinesHolder = styled.div`
+    position: absolute;
+    top: 2rem;
+    right: 3rem;
+    height: 300px;
+    width: 300px;
+    overflow: hidden;
+
+    @media (max-width: 1140px) {
+        display: none;
+    }
+`;
+
+const CornerLinesContent = styled.div`
+    width: 100%;
+    height: 100%;
+    position: relative;
+`;
+
+const CornerLine = styled.div`
+    transform: rotateY(0deg) rotate(45deg);
+    height: .3rem;
+    width: 500%;
+    background: linear-gradient(to right, #4ca1fc 50%, #f5b5f2 50%) left;
+    background-size: 200%;
+    position: absolute;
+    transition: 150ms;
+`;
+
+const Yline = styled.div`
+    position: absolute;
+    height: 100vh;
+    width: 1rem;
+    top: 0;
+    left: 10%;
+    background: #f2f2f2;
+
+    @media (max-width: 1530px) {
+        display: none;
+    }
+`;
+
+const DegDegreeBox = styled.div`
+    width: 3rem;
+    height: 3rem;
+    background: linear-gradient(to right, #4ca1fc 50%, #f5b5f2 50%) left;
+    background-size: 200%;
+    position: absolute;
+    transition: 150ms;
+    transform: rotateY(0deg) rotate(45deg);
+    transition: all .5s ease-in-out;
+
+    &:hover {
+        transform: rotate(315deg);
+    }
+
+    @media (max-width: 960px) {
+        display: none;
+    }
+`;
+
+const Box = styled.div`
+    width: 4rem;
+    height: 3rem;
+    background: linear-gradient(to right, #4ca1fc 50%, #f5b5f2 50%) left;
+    background-size: 200%;
+    position: absolute;
+    transition: all .5s ease-in-out;
+
+    &:hover {
+        width: 6rem;
+        height: 4rem;
+    }
+
+    @media (max-width: 700px) {
+        display: none;
+    }
+`;
+
+const SmallIntro = styled.div`
+    margin-left: 6%;
+    padding-left: 2rem;
+    width: max-content;
+    padding-right: 2rem;
+    padding-bottom: 10px;
+    transition: 450ms ease-in-out;
+
+    &:hover {
+        transform: rotateY(0deg) rotate(-30deg);
+    }
+`;
+
 export const Index = () => {
     const [active, setActive] = useState(false);
     const refStoriesNProjects = useRef(null);
+
+    useEffect(() => {
+        const elements = document.getElementsByClassName('moveme') as HTMLCollectionOf<HTMLElement>;
+        const interval = setInterval(() => {
+            for (var i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                element.style.left = (Math.random() * 10 + (Math.random() < 0.5 ? 90 : 0)).toString() + '%';
+                element.style.top = (Math.random() * 10 + (Math.random() < 0.5 ? 90 : 0)).toString() + '%';
+            }
+        }, 3500);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <>
             <Page>
                 <Wrapper>
-                    <Text style={{paddingLeft: '10%', fontSize: '2.8rem'}}>hi</Text>
-                    <Text style={{paddingLeft: '15%', fontSize: '2rem'}}>I'm Aaron</Text>
-                    <Text style={{paddingLeft: '6%', fontSize: '1.7rem'}}>A 19 year old developer</Text>
+                    <SmallIntro style={{border: active ? '2px solid #f5b5f2' : '2px solid #4ca1fc'}}>
+                        <Text style={{paddingLeft: '4%', fontSize: '2.8rem', width: 'max-content'}}>hi</Text>
+                        <Text style={{paddingLeft: '9%', fontSize: '2rem', width: 'max-content'}}>I'm Aaron</Text>
+                        <Text style={{fontSize: '1.7rem', width: 'max-content'}}>A 19 year old developer</Text>
+                    </SmallIntro>
                 </Wrapper>
                 <VideoIndex/>
+                <Yline/>
+                <DegDegreeBox className="moveme" style={{backgroundPosition: active ? 'right' : 'left', top: '30%', left: '20%'}}/>
+                <Box className="moveme" style={{backgroundPosition: active ? 'right' : 'left', top: '10%', left: '60%'}}/>
+                <CornerLinesHolder>
+                    <CornerLinesContent>
+                        <CornerLine style={{top: 0, right: '-47rem', backgroundPosition: active ? 'right' : 'left'}}/>
+                        <CornerLine style={{top: 0, right: '-46rem', backgroundPosition: active ? 'right' : 'left'}}/>
+                        <CornerLine style={{top: 0, right: '-45rem', backgroundPosition: active ? 'right' : 'left'}}/>
+                        <CornerLine style={{top: 0, right: '-44rem', backgroundPosition: active ? 'right' : 'left'}}/>
+                        <CornerLine style={{top: 0, right: '-43rem', backgroundPosition: active ? 'right' : 'left'}}/>
+                        <CornerLine style={{top: 0, right: '-42rem', backgroundPosition: active ? 'right' : 'left'}}/>
+                        <CornerLine style={{top: 0, right: '-41rem', backgroundPosition: active ? 'right' : 'left'}}/>
+                        <CornerLine style={{top: 0, right: '-40rem', backgroundPosition: active ? 'right' : 'left'}}/>
+                        <CornerLine style={{top: 0, right: '-39rem', backgroundPosition: active ? 'right' : 'left'}}/>
+                        <CornerLine style={{top: 0, right: '-38rem', backgroundPosition: active ? 'right' : 'left'}}/>
+                        <CornerLine style={{top: 0, right: '-37rem', backgroundPosition: active ? 'right' : 'left'}}/>
+                        <CornerLine style={{top: 0, right: '-36rem', backgroundPosition: active ? 'right' : 'left'}}/>
+                        <CornerLine style={{top: 0, right: '-35rem', backgroundPosition: active ? 'right' : 'left'}}/>
+                        <CornerLine style={{top: 0, right: '-34rem', backgroundPosition: active ? 'right' : 'left'}}/>
+                        <CornerLine style={{top: 0, right: '-33rem', backgroundPosition: active ? 'right' : 'left'}}/>
+                        <CornerLine style={{top: 0, right: '-32rem', backgroundPosition: active ? 'right' : 'left'}}/>
+                    </CornerLinesContent>
+                </CornerLinesHolder>
             </Page>
-            <Page style={{backgroundColor: '#f2f2f2'}}>
-                <Wrapper>
+            <SmallerPage style={{backgroundColor: '#f2f2f2'}}>
+                <Wrapper style={{marginBottom: '20vh'}}>
                     <FlexBox>
                         <div style={{width: '488px'}}>
                             <Title><span style={{color: '#d1d1d1'}}>#</span> Who I am</Title>
@@ -211,34 +368,36 @@ export const Index = () => {
                                 and would love to work with you!
                             </Text>
                         </div>
-                        <div style={{padding: '1rem', flexGrow: '1'}}>
-                            <WhatIDoHolder>
-                                <WhatIDo>
-                                    <Icon icon="mdi:school-outline" width="86" height="86" />
-                                    <div style={{flexGrow: '1', paddingLeft: '1rem'}}>
-                                        <BiggerText>At school</BiggerText>
-                                        <EvenBiggerText style={{marginTop: '10px'}}>I code</EvenBiggerText>
-                                    </div>
-                                </WhatIDo>
-                                <WhatIDo>
-                                    <Icon icon="mdi:home-outline" width="86" height="86" />
-                                    <div style={{flexGrow: '1', paddingLeft: '1rem'}}>
-                                        <BiggerText>At home</BiggerText>
-                                        <EvenBiggerText style={{marginTop: '10px'}}>I code</EvenBiggerText>
-                                    </div>
-                                </WhatIDo>
-                                <WhatIDo>
-                                    <Icon icon="mdi:weather-night" width="86" height="86" />
-                                    <div style={{flexGrow: '1', paddingLeft: '1rem'}}>
-                                        <BiggerText>At night</BiggerText>
-                                        <EvenBiggerText style={{marginTop: '10px'}}>I code</EvenBiggerText>
-                                    </div>
-                                </WhatIDo>
-                            </WhatIDoHolder>
-                        </div>
+                        <div style={{padding: '1rem', flexGrow: '1'}}></div>
                     </FlexBox>
+                    <WhatIDoHolder>
+                        <WhatIDo>
+                            <Icon icon="mdi:school-outline" width="86" height="86" />
+                            <div style={{flexGrow: '1', paddingLeft: '1rem'}}>
+                                <EvenBiggerText style={{marginTop: '10px'}}>I code</EvenBiggerText>
+                                <BiggerText>At school</BiggerText>
+                            </div>
+                        </WhatIDo>
+                        <WhatIDo>
+                            <Icon icon="mdi:home-outline" width="86" height="86" />
+                            <div style={{flexGrow: '1', paddingLeft: '1rem'}}>
+                                <EvenBiggerText style={{marginTop: '10px'}}>I code</EvenBiggerText>
+                                <BiggerText>At home</BiggerText>
+                            </div>
+                        </WhatIDo>
+                        <WhatIDo>
+                            <Icon icon="mdi:weather-night" width="86" height="86" />
+                            <div style={{flexGrow: '1', paddingLeft: '1rem'}}>
+                                <EvenBiggerText style={{marginTop: '10px'}}>I code</EvenBiggerText>
+                                <BiggerText>At night</BiggerText>
+                            </div>
+                        </WhatIDo>
+                    </WhatIDoHolder>
                 </Wrapper>
-            </Page>
+                <Yline style={{background: 'white'}}/>
+                <DegDegreeBox className="moveme" style={{backgroundPosition: active ? 'right' : 'left', top: '60%', left: '47%'}}/>
+                <Box className="moveme" style={{backgroundPosition: active ? 'right' : 'left', top: '80%', left: '10%'}}/>
+            </SmallerPage>
             <BiggerPage>
                 <Wrapper>
                     <Title><span style={{color: '#d1d1d1'}}>#</span> What I work with</Title>
@@ -313,6 +472,9 @@ export const Index = () => {
                         <Language lang="solidity" url="https://en.wikipedia.org/wiki/Solidity" desc="An OOP programming language for implementing smart contracts on ethereum based networks"/>.
                     </LanguagesWrapper>
                 </Wrapper>
+                <Yline/>
+                <DegDegreeBox className="moveme" style={{backgroundPosition: active ? 'right' : 'left', top: '40%', left: '94%'}}/>
+                <Box className="moveme" style={{backgroundPosition: active ? 'right' : 'left', top: '30%', left: '90%'}}/>
             </BiggerPage>
             <SpecialPage style={active ? {backgroundPosition: 'right'} : {}}>
                 <SpecialWrapper ref={refStoriesNProjects} style={{backgroundPosition: active ? 'right' : 'left', position: 'relative', overflowX: 'hidden'}}>
@@ -375,8 +537,46 @@ export const Index = () => {
                         </OverlayButtonHolder>
                     </Overlay>
                 </SpecialWrapper>
+                <Yline style={{background: 'white'}}/>
+                <DegDegreeBox className="moveme" style={{background: 'white', top: '30%', left: '90%'}}/>
+                <Box className="moveme" style={{background: 'white', top: '30%', left: '70%'}}/>
             </SpecialPage>
-            
+            <Page>
+                <Wrapper>
+                    <Title><span style={{color: '#d1d1d1'}}>#</span> Contact me</Title>
+                    <Content>
+                        <Contact>
+                            <ContactHalf>
+                                <ContactTable>
+                                    <ContactRow>
+                                        <ContactValue>Name</ContactValue>
+                                        <ContactValue>Aaron Jonk</ContactValue>
+                                    </ContactRow>
+                                    <ContactRow>
+                                        <ContactValue>Phone number</ContactValue>
+                                        <ContactValue>+31 681 413 874</ContactValue>
+                                    </ContactRow>
+                                    <ContactRow>
+                                        <ContactValue>Email</ContactValue>
+                                        <ContactValue>aaron@jonk.name</ContactValue>
+                                    </ContactRow>
+                                    <ContactRow>
+                                        <ContactValue>Twitter</ContactValue>
+                                        <ContactValue><Link href="https://twitter.com/HattyKrabby" target="_blank">@HattyKrabby</Link></ContactValue>
+                                    </ContactRow>
+                                    <ContactRow>
+                                        <ContactValue>Linkedin</ContactValue>
+                                        <ContactValue><Link href="https://www.linkedin.com/in/aaron-jonk-5a3054193/" target="_blank">Aaron Jonk</Link></ContactValue>
+                                    </ContactRow>
+                                </ContactTable>
+                            </ContactHalf>
+                            <ContactHalf>
+                                Thank you image
+                            </ContactHalf>
+                        </Contact>
+                    </Content>
+                </Wrapper>
+            </Page>
         </>
     );
 }
