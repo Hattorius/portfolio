@@ -300,9 +300,11 @@ const SmallIntro = styled.div`
     padding-right: 2rem;
     padding-bottom: 10px;
     transition: 450ms ease-in-out;
+    border-width: 0px;
 
     &:hover {
         transform: rotateY(0deg) rotate(-30deg);
+        border: 2px solid black;
     }
 `;
 
@@ -326,7 +328,7 @@ export const Index = () => {
         <>
             <Page>
                 <Wrapper>
-                    <SmallIntro style={{border: active ? '2px solid #f5b5f2' : '2px solid #4ca1fc'}}>
+                    <SmallIntro style={{borderColor: active ? '#f5b5f2' : '#4ca1fc'}}>
                         <Text style={{paddingLeft: '4%', fontSize: '2.8rem', width: 'max-content'}}>hi</Text>
                         <Text style={{paddingLeft: '9%', fontSize: '2rem', width: 'max-content'}}>I'm Aaron</Text>
                         <Text style={{fontSize: '1.7rem', width: 'max-content'}}>A 19 year old developer</Text>
