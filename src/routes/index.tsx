@@ -4,6 +4,7 @@ import { Icon } from '@iconify/react';
 import { Technologies } from "../components/Technologies";
 import { Language } from "../components/Language";
 import { useEffect, useRef, useState } from "react";
+import { Favorites } from "../components/Favorites";
 
 const Page = styled.div`
     width: 100vw;
@@ -301,11 +302,24 @@ const SmallIntro = styled.div`
     padding-bottom: 10px;
     transition: 450ms ease-in-out;
     border-width: 0px;
+    display: flex;
 
     &:hover {
         transform: rotateY(0deg) rotate(-30deg);
         border: 2px solid black;
     }
+`;
+
+const ImageHolder = styled.div`
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+`;
+
+const Image = styled.img`
+    height: 100%;
 `;
 
 export const Index = () => {
@@ -314,24 +328,26 @@ export const Index = () => {
 
     useEffect(() => {
         const elements = document.getElementsByClassName('moveme') as HTMLCollectionOf<HTMLElement>;
-        const interval = setInterval(() => {
             for (var i = 0; i < elements.length; i++) {
                 const element = elements[i];
                 element.style.left = (Math.random() * 10 + (Math.random() < 0.5 ? 90 : 0)).toString() + '%';
                 element.style.top = (Math.random() * 10 + (Math.random() < 0.5 ? 90 : 0)).toString() + '%';
             }
-        }, 3500);
-        return () => clearInterval(interval);
     }, []);
 
     return (
         <>
             <Page>
-                <Wrapper>
+                <Wrapper style={{position: 'relative'}}>
                     <SmallIntro style={{borderColor: active ? '#f5b5f2' : '#4ca1fc'}}>
-                        <Text style={{paddingLeft: '4%', fontSize: '2.8rem', width: 'max-content'}}>hi</Text>
-                        <Text style={{paddingLeft: '9%', fontSize: '2rem', width: 'max-content'}}>I'm Aaron</Text>
-                        <Text style={{fontSize: '1.7rem', width: 'max-content'}}>A 19 year old developer</Text>
+                        <div>
+                            <Text style={{paddingLeft: '4%', fontSize: '2.8rem', width: 'max-content'}}>hi</Text>
+                            <Text style={{paddingLeft: '9%', fontSize: '2rem', width: 'max-content'}}>I'm Aaron</Text>
+                            <Text style={{fontSize: '1.7rem', width: 'max-content'}}>A 19 year old developer</Text>
+                        </div>
+                        <div>
+                            <Image src="/public/me.png"/>
+                        </div>
                     </SmallIntro>
                 </Wrapper>
                 <VideoIndex/>
@@ -544,6 +560,38 @@ export const Index = () => {
                 <Box className="moveme" style={{background: 'white', top: '30%', left: '70%'}}/>
             </SpecialPage>
             <Page>
+                <Wrapper style={{background: '#f2f2f2'}}>
+                    <Title><span style={{color: '#d1d1d1'}}>#</span> My favorites</Title>
+                    <Content>
+                        <Favorites favorites={[
+                            {
+                                title: 'Anime Series',
+                                items: [
+                                    {title: 'Classroom of the Elite', image: 'https://cdn.myanimelist.net/images/anime/5/86830.jpg', link: 'https://myanimelist.net/anime/35507/Youkoso_Jitsuryoku_Shijou_Shugi_no_Kyoushitsu_e_TV'},
+                                    {title: 'Akashic Records of Bastard Magic Instructor', image: 'https://cdn.myanimelist.net/images/anime/8/85593.jpg', link: 'https://myanimelist.net/anime/32951/Rokudenashi_Majutsu_Koushi_to_Akashic_Records'},
+                                    {title: 'Goblin Slayer', image: 'https://cdn.myanimelist.net/images/anime/1719/95621.jpg', link: 'https://myanimelist.net/anime/37349/Goblin_Slayer'}
+                                ]
+                            },
+                            {
+                                title: 'Anime Characters',
+                                items: [
+                                    {title: 'Kiyotaka Ayanokōji', image: '/public/kiyotaka.webp', link: 'https://you-zitsu.fandom.com/wiki/Kiyotaka_Ayanok%C5%8Dji'},
+                                    {title: 'Rem', image: '/public/rem.png', link: 'https://rezero.fandom.com/wiki/Rem'}
+                                ]
+                            },
+                            {
+                                title: 'Games',
+                                items: [
+                                    {title: 'Valorant', image: '/public/valorant.jpeg', link: 'https://playvalorant.com/en-us/'},
+                                    {title: 'Brawlhalla', image: '/public/brawlhalla.jpg', link: 'https://www.brawlhalla.com/'},
+                                    {title: 'osu', image: '/public/osu.jpg', link: 'https://osu.ppy.sh/home'}
+                                ]
+                            }
+                        ]}/>
+                    </Content>
+                </Wrapper>
+            </Page>
+            <Page style={{backgroundColor: '#f2f2f2'}}>
                 <Wrapper>
                     <Title><span style={{color: '#d1d1d1'}}>#</span> Contact me</Title>
                     <Content>
