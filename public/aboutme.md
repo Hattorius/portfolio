@@ -18,7 +18,7 @@ After dropping out of high school without any diploma, I got the offer to go to 
 
 ### University
 
-I'm currently attending the University of Applied Sciences Windesheim. They got some cool stuff, but I don't feel challenged at all after going to university for 2 months now. Until now there has been nothing that was actually new to me.
+I'm currently attending the Windesheim University of Applied Sciences. They got some cool stuff, but I don't feel challenged at all after going to university for the first year now. Until now there has been nothing that was actually new to me.
 
 ## I ❤️ code
 
